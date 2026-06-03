@@ -87,7 +87,6 @@ vim.keymap.set("n", "<C-k>", function()
         local buf = vim.api.nvim_win_get_buf(win)
         local buf_name = vim.api.nvim_buf_get_name(buf)
         if buf_name == filename then
-          -- برو روی همون تب و پنجره
           vim.api.nvim_set_current_tabpage(tabpage)
           vim.api.nvim_set_current_win(win)
           vim.api.nvim_win_set_cursor(win, { range.start.line + 1, range.start.character })
