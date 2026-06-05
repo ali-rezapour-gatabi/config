@@ -72,30 +72,20 @@ end, opts)
 
 vim.keymap.set("n", "<C-k>", function()
   local params = vim.lsp.util.make_position_params(0, "utf-8")
+
   vim.lsp.buf_request(0, "textDocument/definition", params, function(_, result)
     if not result or vim.tbl_isempty(result) then
       print("No definition found!")
       return
     end
+
     local target = result[1] or result
     local uri = target.uri or target.targetUri
     local range = target.range or target.targetSelectionRange
     local filename = vim.uri_to_fname(uri)
 
-    for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
-      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        local buf_name = vim.api.nvim_buf_get_name(buf)
-        if buf_name == filename then
-          vim.api.nvim_set_current_tabpage(tabpage)
-          vim.api.nvim_set_current_win(win)
-          vim.api.nvim_win_set_cursor(win, { range.start.line + 1, range.start.character })
-          return
-        end
-      end
-    end
+    vim.cmd("tabnew " .. vim.fn.fnameescape(filename))
 
-    vim.cmd("tabedit " .. vim.fn.fnameescape(filename))
     vim.api.nvim_win_set_cursor(0, { range.start.line + 1, range.start.character })
   end)
-end, { noremap = true, silent = true, desc = "Go to definition, reuse existing tab if open" })
+end, { noremap = true, silent = true, desc = "Go to definition in a new split buffer" })
