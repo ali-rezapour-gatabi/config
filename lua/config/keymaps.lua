@@ -37,8 +37,8 @@ keymap.set("n", "cl", ":bd<CR>", { noremap = true, silent = true })
 
 -- New tab
 keymap.set("n", "te", ":tabedit")
-keymap.set("n", "<tab>", ":tabnext<Return>", opts)
-keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
+-- keymap.set("n", "<tab>", ":tabnext<Return>", opts)
+-- keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
 keymap.set("n", "<Space>", "<C-w>w", opts)
 
@@ -71,11 +71,11 @@ keymap.set("n", "<C-j>", function()
 end, opts)
 
 vim.keymap.set("n", "<C-k>", function()
-  local params = vim.lsp.util.make_position_params(0, "utf-8")
+  local params = vim.lsp.util.make_position_params()
 
   vim.lsp.buf_request(0, "textDocument/definition", params, function(_, result)
     if not result or vim.tbl_isempty(result) then
-      print("No definition found!")
+      print("No definition found")
       return
     end
 
@@ -84,8 +84,14 @@ vim.keymap.set("n", "<C-k>", function()
     local range = target.range or target.targetSelectionRange
     local filename = vim.uri_to_fname(uri)
 
-    vim.cmd("tabnew " .. vim.fn.fnameescape(filename))
-
-    vim.api.nvim_win_set_cursor(0, { range.start.line + 1, range.start.character })
+    vim.cmd("badd " .. vim.fn.fnameescape(filename))
+    local bufnr = vim.fn.bufnr(filename)
+    vim.cmd("buffer " .. bufnr)
+    if range then
+      vim.api.nvim_win_set_cursor(0, {
+        range.start.line + 1,
+        range.start.character,
+      })
+    end
   end)
-end, { noremap = true, silent = true, desc = "Go to definition in a new split buffer" })
+end, { silent = true })
