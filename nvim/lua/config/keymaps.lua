@@ -76,12 +76,9 @@ map("n", "<C-i>", function()
   pick("lsp_implementations", { reuse_win = true })
 end, { desc = "Goto Implementation" })
 
--- Goto definition: jump in the current window instead of opening a new tab.
--- With a single result it jumps directly, otherwise Telescope shows the list.
 map("n", "<C-n>", function()
   local clients = vim.lsp.get_clients({ bufnr = 0, method = "textDocument/definition" })
   if #clients == 0 then
-    -- Keep the default <C-n> behavior in buffers without an LSP
     vim.cmd("normal! j")
     return
   end
@@ -136,5 +133,14 @@ map("n", "gl", function()
   require("snacks").lazygit()
 end, { desc = "Open Lazygit" })
 
-
+map({ "n", "v" }, "<C-M-l>", function()
+  require("conform").format({
+    async = true,
+    lsp_format = "fallback",
+  })
+end, {
+  noremap = true,
+  silent = true,
+  desc = "Format manually",
+})
 
