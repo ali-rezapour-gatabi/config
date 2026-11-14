@@ -10,49 +10,6 @@ return {
     },
     keys = {
       {
-        ";f",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.find_files({
-            no_ignore = false,
-            hidden = true,
-          })
-        end,
-        desc = "Lists files in your current working directory, respects .gitignore",
-      },
-      {
-        "fb",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.buffers()
-        end,
-        desc = "Lists open buffers",
-      },
-      {
-        ";e",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.diagnostics()
-        end,
-        desc = "Lists Diagnostics for all open buffers or a specific buffer",
-      },
-      {
-        ";s",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.treesitter()
-        end,
-        desc = "Lists Function names, variables, from Treesitter",
-      },
-      {
-        ";c",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.lsp_incoming_calls()
-        end,
-        desc = "Lists LSP incoming calls for word under the cursor",
-      },
-      {
         "nn",
         function()
           local telescope = require("telescope")
@@ -68,7 +25,7 @@ return {
             hidden = true,
             grouped = true,
             initial_mode = "normal",
-            layout_config = { height = 50 , width = 150 },
+            layout_config = { height = 50, width = 100 },
           })
         end,
         desc = "Open File Browser with the path of the current buffer",

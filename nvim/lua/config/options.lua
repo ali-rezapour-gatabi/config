@@ -1,35 +1,22 @@
 vim.g.mapleader = " "
 
+-- LazyVim plugin choices
+vim.g.lazyvim_picker = "telescope"
+vim.g.lazyvim_prettier_needs_config = true
+vim.g.lazyvim_php_lsp = "intelephense"
+
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
-
-vim.opt.number = true
-
-vim.opt.title = true
-vim.opt.autoindent = false
-vim.opt.smartindent = true
-vim.opt.hlsearch = true
-vim.opt.backup = false
-vim.opt.showcmd = true
-vim.opt.cmdheight = 1
-vim.opt.laststatus = 3
-vim.opt.expandtab = true
 vim.opt.scrolloff = 10
-vim.opt.shell = "fish"
-vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
-vim.opt.inccommand = "split"
 vim.opt.smarttab = true
 vim.opt.breakindent = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.wrap = false
-vim.opt.backspace = { "start", "eol", "indent" }
-vim.opt.path:append({ "**" })
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.opt.inccommand = "split"
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = ""
-vim.g.lazyvim_php_lsp = "intelephense"
+vim.opt.title = true
+vim.opt.shell = "fish"
 vim.opt.clipboard:append("unnamedplus")
 vim.g.autoformat = false
-vim.g.lazyvim_prettier_needs_config = true
+vim.opt.splitkeep = "cursor"
+vim.opt.backspace = { "start", "eol", "indent" }
+vim.opt.path:append({ "**" })
